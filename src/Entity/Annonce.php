@@ -50,12 +50,12 @@ class Annonce
     private $anneeCirculation;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     private $kilometrage;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="decimal", precision=13, scale=2)
      */
     private $prix;
 
