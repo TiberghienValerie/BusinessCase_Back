@@ -25,7 +25,7 @@ class Annonce
     private $DateAnnonce;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=10, unique=true)
      */
     private $refAnnonce;
 
@@ -58,6 +58,24 @@ class Annonce
      * @ORM\Column(type="float")
      */
     private $prix;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Carburant::class, inversedBy="annonces")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $carburant;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Modele::class, inversedBy="annonces")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $modele;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Garage::class, inversedBy="annonces")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $garage;
 
     public function getId(): ?int
     {
@@ -156,6 +174,42 @@ class Annonce
     public function setPrix(float $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getCarburant(): ?Carburant
+    {
+        return $this->carburant;
+    }
+
+    public function setCarburant(?Carburant $carburant): self
+    {
+        $this->carburant = $carburant;
+
+        return $this;
+    }
+
+    public function getModele(): ?Modele
+    {
+        return $this->modele;
+    }
+
+    public function setModele(?Modele $modele): self
+    {
+        $this->modele = $modele;
+
+        return $this;
+    }
+
+    public function getGarage(): ?Garage
+    {
+        return $this->garage;
+    }
+
+    public function setGarage(?Garage $garage): self
+    {
+        $this->garage = $garage;
 
         return $this;
     }

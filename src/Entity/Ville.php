@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\VilleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,6 +45,16 @@ class Ville
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $adresse3;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Garage::class, mappedBy="ville")
+     */
+    private $garages;
+
+    public function __construct()
+    {
+        $this->garages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +117,36 @@ class Ville
     public function setAdresse3(?string $adresse3): self
     {
         $this->adresse3 = $adresse3;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Garage[]
+     */
+    public function getGarages(): Collection
+    {
+        return $this->garages;
+    }
+
+    public function addGarage(Garage $garage): self
+    {
+        if (!$this->garages->contains($garage)) {
+            $this->garages[] = $garage;
+            $garage->setVille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGarage(Garage $garage): self
+    {
+        if ($this->garages->removeElement($garage)) {
+            // set the owning side to null (unless already changed)
+            if ($garage->getVille() === $this) {
+                $garage->setVille(null);
+            }
+        }
 
         return $this;
     }
