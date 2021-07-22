@@ -32,6 +32,12 @@ class Photo
      */
     private $ordre;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Annonce::class, inversedBy="photos")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $annonce;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +75,18 @@ class Photo
     public function setOrdre(int $ordre): self
     {
         $this->ordre = $ordre;
+
+        return $this;
+    }
+
+    public function getAnnonce(): ?Annonce
+    {
+        return $this->annonce;
+    }
+
+    public function setAnnonce(?Annonce $annonce): self
+    {
+        $this->annonce = $annonce;
 
         return $this;
     }
