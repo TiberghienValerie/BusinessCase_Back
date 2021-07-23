@@ -7,9 +7,29 @@ use App\Repository\MarqueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={
+ *     "get",
+ *     "post"={
+ *              "security"="is_granted('ROLE_ADMIN')"
+ *          }
+ *     },
+ *     itemOperations={
+ *     "get",
+ *     "put"={
+ *              "security"="is_granted('ROLE_ADMIN')"
+ *          },
+ *     "delete"={
+ *              "security"="is_granted('ROLE_ADMIN')"
+ *          }
+ *     },
+ *     normalizationContext={
+ *          "groups"={"marque:get"}
+ *     }
+ * )
  * @ORM\Entity(repositoryClass=MarqueRepository::class)
  */
 class Marque
@@ -18,11 +38,13 @@ class Marque
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"marque:get"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50, unique=true)
+     * @Groups({"marque:get"})
      */
     private $nomMarque;
 

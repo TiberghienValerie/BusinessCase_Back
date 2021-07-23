@@ -9,10 +9,30 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ * collectionOperations={
+ *     "get",
+ *     "post"={
+ *              "security"="is_granted('ROLE_ADMIN')"
+ *          }
+ *     },
+ *     itemOperations={
+ *     "get",
+ *     "put"={
+ *              "security"="is_granted('ROLE_ADMIN') or object.id == user"
+ *          },
+ *     "delete"={
+ *              "security"="is_granted('ROLE_ADMIN')"
+ *          }
+ *     },
+ *     normalizationContext={
+ *          "groups"={"user:get"}
+ *     }
+ * )
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -21,22 +41,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"user:get"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"user:get"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"user:get"})
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Groups({"user:get"})
      */
     private $password;
 
@@ -48,16 +72,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=50, unique=true)
+     * @Groups({"user:get"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=15)
+     * @Groups({"user:get"})
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="string", length=14, unique=true)
+     * @Groups({"user:get"})
      */
     private $siret;
 
@@ -68,11 +95,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user:get"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user:get"})
      */
     private $prenom;
 

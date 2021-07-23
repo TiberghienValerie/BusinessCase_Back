@@ -52,7 +52,7 @@ class Annonce
     private $anneeCirculation;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @ORM\Column(type="integer")
      */
     private $kilometrage;
 
