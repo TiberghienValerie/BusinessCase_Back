@@ -2,14 +2,41 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\VilleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={
+ *     "get",
+ *     "post"={
+ *              "security"="is_granted('ROLE_ADMIN')"
+ *          }
+ *     },
+ *     itemOperations={
+ *     "get",
+ *     "put"={
+ *              "security"="is_granted('ROLE_ADMIN')"
+ *          },
+ *     "delete"={
+ *              "security"="is_granted('ROLE_ADMIN')"
+ *          }
+ *     },
+ *     normalizationContext={
+ *          "groups"={"ville:get"}
+ *     }
+ * )
+ * @ApiFilter(SearchFilter::class, properties={"codePostal"="exact", "nomVille"="exact"})
+ * @ApiFilter(OrderFilter::class, properties={"id"="asc"})
+ * @ApiFilter(NumericFilter::class, properties={"id"})
  * @ORM\Entity(repositoryClass=VilleRepository::class)
  */
 class Ville
@@ -18,31 +45,37 @@ class Ville
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"ville:get"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=5)
+     * @Groups({"ville:get"}
      */
     private $codePostal;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups({"ville:get"}
      */
     private $nomVille;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"ville:get"}
      */
     private $adresse1;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Groups({"ville:get"}
      */
     private $adresse2;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Groups({"ville:get"}
      */
     private $adresse3;
 

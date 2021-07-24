@@ -2,12 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MarqueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 
 /**
  * @ApiResource(
@@ -30,6 +34,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "groups"={"marque:get"}
  *     }
  * )
+ * @ApiFilter(SearchFilter::class, properties={"nomMarque"="exact"})
+ * @ApiFilter(OrderFilter::class, properties={"id"="asc"})
+ * @ApiFilter(NumericFilter::class, properties={"id"})
+ *
  * @ORM\Entity(repositoryClass=MarqueRepository::class)
  */
 class Marque
@@ -50,6 +58,7 @@ class Marque
 
     /**
      * @ORM\OneToMany(targetEntity=Modele::class, mappedBy="Marque")
+     * @Groups({"marque:get"})
      */
     private $modeles;
 

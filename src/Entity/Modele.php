@@ -2,12 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ModeleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 
 /**
  * @ApiResource(
@@ -30,6 +34,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "groups"={"modele:get"}
  *     }
  * )
+ * @ApiFilter(SearchFilter::class, properties={"nomModele"="exact"})
+ * @ApiFilter(OrderFilter::class, properties={"id"="asc"})
+ * @ApiFilter(NumericFilter::class, properties={"id"})
+ *
  * @ORM\Entity(repositoryClass=ModeleRepository::class)
  */
 class Modele
@@ -44,6 +52,7 @@ class Modele
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"modele:get"})
      */
     private $nomModele;
 

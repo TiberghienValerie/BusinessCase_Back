@@ -2,12 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CarburantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 
 /**
  * @ApiResource(
@@ -27,9 +31,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          }
  *     },
  *     normalizationContext={
- *          "groups"={"carburant:get","carburant:get_lite"}
+ *          "groups"={"carburant:get"}
  *     }
  * )
+ * @ApiFilter(SearchFilter::class, properties={"nomCarburant"="exact"})
+ * @ApiFilter(OrderFilter::class, properties={"id"="asc"})
+ * @ApiFilter(NumericFilter::class, properties={"id"})
+ *
  * @ORM\Entity(repositoryClass=CarburantRepository::class)
  */
 class Carburant

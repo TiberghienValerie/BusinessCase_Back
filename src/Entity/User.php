@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,6 +12,9 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 
 /**
  * @ApiResource(
@@ -23,7 +27,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  *     itemOperations={
  *     "get",
  *     "put"={
- *              "security"="is_granted('ROLE_ADMIN') or object.id == user"
+ *              "security"="is_granted('ROLE_ADMIN') or object == user"
  *          },
  *     "delete"={
  *              "security"="is_granted('ROLE_ADMIN')"
@@ -33,6 +37,9 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  *          "groups"={"user:get"}
  *     }
  * )
+ * @ApiFilter(SearchFilter::class, properties={"nom"="exact","prenom"="exact","siret"="exact","telephone"="exact", "userName"="exact", "email"="exact"})
+ * @ApiFilter(OrderFilter::class, properties={"id"="asc"})
+ * @ApiFilter(NumericFilter::class, properties={"id"})
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface

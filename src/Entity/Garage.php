@@ -2,14 +2,43 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\GarageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ * collectionOperations={
+ *     "get",
+ *     "post"={
+ *              "security"="is_granted('ROLE_ADMIN') or object.user== user"
+ *          }
+ *     },
+ *     itemOperations={
+ *     "get",
+ *     "put"={
+ *              "security"="is_granted('ROLE_ADMIN') or object.user== user"
+ *          },
+ *     "delete"={
+ *              "security"="is_granted('ROLE_ADMIN') or object.user== user"
+ *          }
+ *     },
+ *     normalizationContext={
+ *          "groups"={"garage:get"}
+ *     }
+ * )
+ * @ApiFilter(SearchFilter::class, properties={"nom"="exact", "telephone"="exact"})
+ * @ApiFilter(OrderFilter::class, properties={"id"="asc"})
+ * @ApiFilter(NumericFilter::class, properties={"id"})
+ *
  * @ORM\Entity(repositoryClass=GarageRepository::class)
  */
 class Garage
@@ -18,22 +47,26 @@ class Garage
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"garage:get"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups({"garage:get"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=15)
+     * @Groups({"garage:get"})
      */
     private $telephone;
 
     /**
      * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="garages")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"garage:get"})
      */
     private $ville;
 
