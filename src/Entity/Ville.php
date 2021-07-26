@@ -51,31 +51,31 @@ class Ville
 
     /**
      * @ORM\Column(type="string", length=5)
-     * @Groups({"ville:get"}
+     * @Groups({"ville:get"})
      */
     private $codePostal;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups({"ville:get"}
+     * @Groups({"ville:get"})
      */
     private $nomVille;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"ville:get"}
+     * @Groups({"ville:get"})
      */
     private $adresse1;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
-     * @Groups({"ville:get"}
+     * @Groups({"ville:get"})
      */
     private $adresse2;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
-     * @Groups({"ville:get"}
+     * @Groups({"ville:get"})
      */
     private $adresse3;
 

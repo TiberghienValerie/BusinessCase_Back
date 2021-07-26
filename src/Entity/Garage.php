@@ -37,7 +37,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * )
  * @ApiFilter(SearchFilter::class, properties={"nom"="exact", "telephone"="exact"})
  * @ApiFilter(OrderFilter::class, properties={"id"="asc"})
- * @ApiFilter(NumericFilter::class, properties={"id"})
+ * @ApiFilter(NumericFilter::class, properties={"user.id", "id"})
  *
  * @ORM\Entity(repositoryClass=GarageRepository::class)
  */

@@ -34,7 +34,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * )
  * @ApiFilter(SearchFilter::class, properties={"nomPhotos"="exact"})
  * @ApiFilter(OrderFilter::class, properties={"id"="asc"})
- * @ApiFilter(NumericFilter::class, properties={"id"})
+ * @ApiFilter(NumericFilter::class, properties={"annonce.garage.user.id", "id"})
  * @ORM\Entity(repositoryClass=PhotoRepository::class)
  */
 class Photo

@@ -38,7 +38,7 @@ use Doctrine\ORM\Mapping as ORM;
  * )
  * @ApiFilter(SearchFilter::class, properties={"refAnnonce"="exact","titre"="exact", "refAnnonce"="exact", "titre"="exact"})
  * @ApiFilter(OrderFilter::class, properties={"id"="asc"})
- * @ApiFilter(NumericFilter::class, properties={"carburant.id", "modele.id", "modele.marque.id", prix","kilometrage","anneeCirculation","id"})
+ * @ApiFilter(NumericFilter::class, properties={"garage.user.id", "carburant.id", "modele.id", "modele.marque.id", "prix","kilometrage","anneeCirculation","id"})
  * @ApiFilter(RangeFilter::class, properties={"prix","kilometrage","anneeCirculation","id"})
  * @ORM\Entity(repositoryClass=AnnonceRepository::class)
  */
