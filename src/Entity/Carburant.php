@@ -46,13 +46,13 @@ class Carburant
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"carburant:get"})
+     * @Groups({"carburant:get", "annonce:get"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"carburant:get"})
+     * @Groups({"carburant:get", "annonce:get"})
      */
     private $NomCarburant;
 

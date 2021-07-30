@@ -119,11 +119,10 @@ class Annonce
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"annonce:get"})
      */
-    private $garage;
+    public $garage;
 
     /**
      * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="annonce")
-     * @Groups({"annonce:get"})
      */
     private $photos;
 

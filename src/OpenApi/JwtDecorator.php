@@ -29,7 +29,7 @@ final class JwtDecorator implements OpenApiFactoryInterface
                 'token' => [
                     'type' => 'string',
                     'readOnly' => true,
-                ],
+                ]
             ],
         ]);
         $schemas['Credentials'] = new \ArrayObject([

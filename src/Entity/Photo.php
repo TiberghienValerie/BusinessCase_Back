@@ -43,25 +43,25 @@ class Photo
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"photo:get"})
+     * @Groups({"photo:get", "annonce:get"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"photo:get"})
+     * @Groups({"photo:get", "annonce:get"})
      */
     private $nomPhotos;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"photo:get"})
+     * @Groups({"photo:get", "annonce:get"})
      */
     private $pathPhotos;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"photo:get"})
+     * @Groups({"photo:get", "annonce:get"})
      */
     private $ordre;
 
@@ -69,7 +69,7 @@ class Photo
      * @ORM\ManyToOne(targetEntity=Annonce::class, inversedBy="photos")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $annonce;
+    public $annonce;
 
     public function getId(): ?int
     {

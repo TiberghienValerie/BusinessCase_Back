@@ -46,20 +46,20 @@ class Modele
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"modele:get"})
+     * @Groups({"modele:get", "annonce:get"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"modele:get"})
+     * @Groups({"modele:get", "annonce:get"})
      */
     private $nomModele;
 
     /**
      * @ORM\ManyToOne(targetEntity=Marque::class, inversedBy="modeles")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"modele:get"})
+     * @Groups({"modele:get", "annonce:get"})
      */
     private $Marque;
 

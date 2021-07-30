@@ -13,19 +13,18 @@ use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-
 /**
  * @ApiResource(
  * collectionOperations={
  *     "get",
  *     "post"={
- *              "security"="is_granted('ROLE_ADMIN') or object.user== user"
+ *              "security"="is_granted('ROLE_PROFESSIONNEL')"
  *          }
  *     },
  *     itemOperations={
  *     "get",
  *     "put"={
- *              "security"="is_granted('ROLE_ADMIN') or object.user== user"
+ *              "security"="is_granted('ROLE_ADMIN') or object.user == user"
  *          },
  *     "delete"={
  *              "security"="is_granted('ROLE_ADMIN') or object.user== user"
@@ -47,13 +46,13 @@ class Garage
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"garage:get"})
+     * @Groups({"garage:get", "annonce:get"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups({"garage:get"})
+     * @Groups({"garage:get", "annonce:get"})
      */
     private $nom;
 
@@ -79,7 +78,7 @@ class Garage
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="garages")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    public $user;
 
     public function __construct()
     {

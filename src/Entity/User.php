@@ -19,13 +19,17 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 /**
  * @ApiResource(
  * collectionOperations={
- *     "get",
+ *     "get"={
+ *              "security"="is_granted('ROLE_PROFESSIONNEL')"
+ *      },
  *     "post"={
  *              "security"="is_granted('ROLE_ADMIN')"
  *          }
  *     },
  *     itemOperations={
- *     "get",
+ *     "get"={
+ *              "security"="is_granted('ROLE_PROFESSIONNEL')"
+ *      },
  *     "put"={
  *              "security"="is_granted('ROLE_ADMIN') or object == user"
  *          },
