@@ -46,13 +46,13 @@ class Modele
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"modele:get", "annonce:get"})
+     * @Groups({"modele:get", "annonce:get", "marque:get"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"modele:get", "annonce:get"})
+     * @Groups({"modele:get", "annonce:get", "marque:get"})
      */
     private $nomModele;
 

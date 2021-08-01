@@ -34,10 +34,9 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
  *          "groups"={"carburant:get"}
  *     }
  * )
- * @ApiFilter(SearchFilter::class, properties={"nomCarburant"="exact"})
- * @ApiFilter(OrderFilter::class, properties={"id"="asc"})
+ * @ApiFilter(SearchFilter::class, properties={"NomCarburant"="exact"})
+ * @ApiFilter(OrderFilter::class, properties={"NomCarburant"="asc"})
  * @ApiFilter(NumericFilter::class, properties={"id"})
- *
  * @ORM\Entity(repositoryClass=CarburantRepository::class)
  */
 class Carburant
