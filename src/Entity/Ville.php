@@ -12,6 +12,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ApiResource(
@@ -45,37 +47,46 @@ class Ville
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"ville:get"})
+     * @Groups({"ville:get", "garage:get"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=5)
-     * @Groups({"ville:get"})
+     * @Groups({"ville:get", "garage:get"})
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
+     * @Assert\Length(max=5,maxMessage="Your codePostal cannot be longer than {{ limit }} characters")
      */
     private $codePostal;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups({"ville:get"})
+     * @Groups({"ville:get", "garage:get"})
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
+     * @Assert\Length(max=100,maxMessage="Your nomVille cannot be longer than {{ limit }} characters")
      */
     private $nomVille;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"ville:get"})
+     * @Groups({"ville:get", "garage:get"})
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
+     * @Assert\Length(max=50,maxMessage="Your adresse1 cannot be longer than {{ limit }} characters")
      */
     private $adresse1;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
-     * @Groups({"ville:get"})
+     * @Groups({"ville:get", "garage:get"})
      */
     private $adresse2;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
-     * @Groups({"ville:get"})
+     * @Groups({"ville:get", "garage:get"})
      */
     private $adresse3;
 

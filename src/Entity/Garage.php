@@ -12,6 +12,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Controller\phone;
 
 /**
  * @ApiResource(
@@ -52,12 +54,20 @@ class Garage
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
      * @Groups({"garage:get", "annonce:get"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=15)
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
+     * @Assert\Regex(
+     *     pattern=Phone::VALID_REGEX,
+     *     message="phone"
+     * )
      * @Groups({"garage:get"})
      */
     private $telephone;

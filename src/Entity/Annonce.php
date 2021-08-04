@@ -13,11 +13,12 @@ use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
  * @ApiResource(
- * attributes={"order"={"DateAnnonce"="DESC"}},
+ * attributes={"order"={"DateAnnonce"="DESC"},"pagination_items_per_page"=30},
  * collectionOperations={
  *     "get",
  *     "post"={
@@ -56,29 +57,43 @@ class Annonce
     /**
      * @ORM\Column(type="datetime")
      * @Groups({"annonce:get"})
+     * @Assert\DateTime(message="Type datetime")
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
      */
     private $DateAnnonce;
 
     /**
      * @ORM\Column(type="string", length=10, unique=true)
      * @Groups({"annonce:get"})
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
+     * @Assert\Unique(message="La reférence est déjà utilisé")
+     * @Assert\Length(max=10,maxMessage="Your refAnnonce cannot be longer than {{ limit }} characters")
      */
     private $refAnnonce;
 
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"annonce:get"})
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
+     * @Assert\Length(max=50,maxMessage="Your titre cannot be longer than {{ limit }} characters")
      */
     private $titre;
 
     /**
      * @ORM\Column(type="string", length=250)
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
      * @Groups({"annonce:get"})
      */
     private $descriptionCourte;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
      * @Groups({"annonce:get"})
      */
     private $descriptionLongue;
@@ -86,17 +101,20 @@ class Annonce
     /**
      * @ORM\Column(type="integer")
      * @Groups({"annonce:get"})
+     * @Assert\PositiveOrZero(message="not negative")
      */
     private $anneeCirculation;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"annonce:get"})
+     * @Assert\PositiveOrZero(message="not negative")
      */
     private $kilometrage;
 
     /**
      * @ORM\Column(type="decimal", precision=13, scale=2)
+     * @Assert\PositiveOrZero(message="not negative")
      * @Groups({"annonce:get"})
      */
     private $prix;

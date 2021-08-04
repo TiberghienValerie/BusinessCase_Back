@@ -15,6 +15,8 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Controller\phone;
 
 /**
  * @ApiResource(
@@ -41,7 +43,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
  *          "groups"={"user:get"}
  *     }
  * )
- * @ApiFilter(SearchFilter::class, properties={"nom"="exact","prenom"="exact","siret"="exact","telephone"="exact", "userName"="exact", "email"="exact"})
+ * @ApiFilter(SearchFilter::class, properties={"nom"="exact","prenom"="exact","siret"="exact","telephone"="exact","username"="exact","email"="exact"})
  * @ApiFilter(OrderFilter::class, properties={"id"="asc"})
  * @ApiFilter(NumericFilter::class, properties={"id"})
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -58,6 +60,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
+     * @Assert\Unique(message="Le username est déjà utilisé")
      * @Groups({"user:get"})
      */
     private $username;
@@ -70,6 +75,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @var string The hashed password
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
      * @ORM\Column(type="string")
      * @Groups({"user:get"})
      */
@@ -83,18 +90,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=50, unique=true)
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\Email(message="L'email n'est pas valide")
+     * @Assert\Unique(message="L'email est déjà utilisé")
      * @Groups({"user:get"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=15)
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
+     * @Assert\Length(max=15,maxMessage="Your telephone cannot be longer than {{ limit }} characters")
+     * @Assert\Regex(
+     *     pattern=Phone::VALID_REGEX,
+     *     message="phone"
+     * )
      * @Groups({"user:get"})
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="string", length=14, unique=true)
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
+     * @Assert\Unique(message="le siret est déjà utilisé")
+     * @Assert\Length(max=14,maxMessage="Your siret cannot be longer than {{ limit }} characters")
      * @Groups({"user:get"})
      */
     private $siret;
@@ -106,12 +127,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
      * @Groups({"user:get"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
      * @Groups({"user:get"})
      */
     private $prenom;

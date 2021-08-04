@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -51,6 +52,9 @@ class Carburant
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
+     * @Assert\Length(max=50,maxMessage="Your NomCarburant cannot be longer than {{ limit }} characters")
      * @Groups({"carburant:get", "annonce:get"})
      */
     private $NomCarburant;

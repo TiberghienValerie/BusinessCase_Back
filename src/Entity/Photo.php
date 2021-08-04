@@ -10,6 +10,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -50,18 +51,23 @@ class Photo
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"photo:get", "annonce:get"})
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
      */
     private $nomPhotos;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"photo:get", "annonce:get"})
+     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotNull(message = "notNull")
      */
     private $pathPhotos;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"photo:get", "annonce:get"})
+     * @Assert\NotBlank(message = "notBlank")
      */
     private $ordre;
 
