@@ -54,14 +54,14 @@ class Marque
     /**
      * @ORM\Column(type="string", length=50, unique=true)
      * @Groups({"marque:get", "modele:get", "annonce:get"})
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
+     * @Assert\NotBlank(message = "Blanc interdit pour le nom de la marque")
+     * @Assert\NotNull(message = "not null interdit pour le nom de la marque")
      * @Assert\Length(max=50,maxMessage="Your nomMarque cannot be longer than {{ limit }} characters")
      */
     private $nomMarque;
 
     /**
-     * @ORM\OneToMany(targetEntity=Modele::class, mappedBy="Marque")
+     * @ORM\OneToMany(targetEntity=Modele::class, mappedBy="Marque", cascade={"remove"})
      * @Groups({"marque:get"})
      */
     private $modeles;

@@ -30,6 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "put"={
  *              "security"="is_granted('ROLE_ADMIN') or object.garage.user== user"
  *          },
+ *
  *     "delete"={
  *              "security"="is_granted('ROLE_ADMIN') or object.garage.user== user"
  *          }
@@ -141,7 +142,7 @@ class Annonce
     public $garage;
 
     /**
-     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="annonce")
+     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="annonce", cascade={"remove"})
      */
     private $photos;
 

@@ -51,23 +51,24 @@ class Photo
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"photo:get", "annonce:get"})
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
+     * @Assert\NotBlank(message = "Blanc interdit pour le nom de la photo")
+     * @Assert\NotNull(message = "not null interdit pour le nom de la photo")
      */
     private $nomPhotos;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"photo:get", "annonce:get"})
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
+     * @Assert\NotBlank(message = "Blanc interdit pour le path de la photo")
+     * @Assert\NotNull(message = "not null interdit pour le path de la photo")
      */
     private $pathPhotos;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"photo:get", "annonce:get"})
-     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotBlank(message = "Blanc interdit pour l'ordre'")
+     * @Assert\NotNull(message = "not null interdit pour l'ordre'")
      */
     private $ordre;
 

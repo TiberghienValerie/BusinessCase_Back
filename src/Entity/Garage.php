@@ -13,7 +13,7 @@ use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Controller\phone;
+
 
 /**
  * @ApiResource(
@@ -54,33 +54,30 @@ class Garage
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
+     * @Assert\NotBlank(message = "Blanc interdit pour le nom")
+     * @Assert\NotNull(message = "Not Null interdit pour le nom")
      * @Groups({"garage:get", "annonce:get"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=15)
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
-     * @Assert\Regex(
-     *     pattern=Phone::VALID_REGEX,
-     *     message="phone"
-     * )
+     * @Assert\NotBlank(message = "Blanc interdit pour le telephone")
+     * @Assert\NotNull(message = "not null interdit pour le telephone")
      * @Groups({"garage:get"})
      */
     private $telephone;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="garages")
+     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="garages", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"garage:get"})
      */
     private $ville;
 
     /**
-     * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="garage")
+     * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="garage", cascade={"remove"})
+     * @Groups({"garage:get"})
      */
     private $annonces;
 

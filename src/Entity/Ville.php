@@ -20,13 +20,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     collectionOperations={
  *     "get",
  *     "post"={
- *              "security"="is_granted('ROLE_ADMIN')"
+ *              "security"="is_granted('ROLE_PROFESSIONNEL')"
  *          }
  *     },
  *     itemOperations={
  *     "get",
  *     "put"={
- *              "security"="is_granted('ROLE_ADMIN')"
+ *              "security"="is_granted('ROLE_PROFESSIONNEL')"
  *          },
  *     "delete"={
  *              "security"="is_granted('ROLE_ADMIN')"
@@ -54,8 +54,8 @@ class Ville
     /**
      * @ORM\Column(type="string", length=5)
      * @Groups({"ville:get", "garage:get"})
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
+     * @Assert\NotBlank(message = "Not blanc interdit pour le code postal")
+     * @Assert\NotNull(message = "Not null interdit pour le code postal")
      * @Assert\Length(max=5,maxMessage="Your codePostal cannot be longer than {{ limit }} characters")
      */
     private $codePostal;
@@ -63,8 +63,8 @@ class Ville
     /**
      * @ORM\Column(type="string", length=100)
      * @Groups({"ville:get", "garage:get"})
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
+     * @Assert\NotBlank(message = "Blanc interdit pour le nom de la ville")
+     * @Assert\NotNull(message = "Not null interdit pour le nom de la ville")
      * @Assert\Length(max=100,maxMessage="Your nomVille cannot be longer than {{ limit }} characters")
      */
     private $nomVille;
@@ -72,8 +72,8 @@ class Ville
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"ville:get", "garage:get"})
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
+     * @Assert\NotBlank(message = "Blanc interdit pour l'adresse 1")
+     * @Assert\NotNull(message = "Not null interdit pour l'adresse 2")
      * @Assert\Length(max=50,maxMessage="Your adresse1 cannot be longer than {{ limit }} characters")
      */
     private $adresse1;

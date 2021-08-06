@@ -52,8 +52,8 @@ class Carburant
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
+     * @Assert\NotBlank(message = "Blanc interdit pour le nom du carburant")
+     * @Assert\NotNull(message = "Not null interdit pour le Nom du carburant")
      * @Assert\Length(max=50,maxMessage="Your NomCarburant cannot be longer than {{ limit }} characters")
      * @Groups({"carburant:get", "annonce:get"})
      */

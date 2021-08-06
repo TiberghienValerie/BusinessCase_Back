@@ -54,8 +54,8 @@ class Modele
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"modele:get", "annonce:get", "marque:get"})
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
+     * @Assert\NotBlank(message = "Blanc interdit pour le nom du modele")
+     * @Assert\NotNull(message = "not null interdit pour le nom du modele")
      * @Assert\Length(max=50,maxMessage="Your nomModele cannot be longer than {{ limit }} characters")
      */
     private $nomModele;

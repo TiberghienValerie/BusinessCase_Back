@@ -8,6 +8,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -16,7 +17,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Elasticsearch\DataProvider\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Controller\phone;
+
 
 /**
  * @ApiResource(
@@ -28,18 +29,18 @@ use App\Controller\phone;
  *              "security"="is_granted('ROLE_ADMIN')"
  *          }
  *     },
- *     itemOperations={
+ * itemOperations={
  *     "get"={
  *              "security"="is_granted('ROLE_PROFESSIONNEL')"
  *      },
  *     "put"={
- *              "security"="is_granted('ROLE_ADMIN') or object == user"
+ *              "security"="is_granted('ROLE_PROFESSIONNEL')"
  *          },
  *     "delete"={
  *              "security"="is_granted('ROLE_ADMIN')"
  *          }
  *     },
- *     normalizationContext={
+ * normalizationContext={
  *          "groups"={"user:get"}
  *     }
  * )
@@ -47,6 +48,11 @@ use App\Controller\phone;
  * @ApiFilter(OrderFilter::class, properties={"id"="asc"})
  * @ApiFilter(NumericFilter::class, properties={"id"})
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(
+ *     fields={"username", "email", "siret"},
+ *     errorPath="Infos",
+ *     message="Email, uusername ou siret déjà utilisé."
+ * )
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -60,9 +66,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
-     * @Assert\Unique(message="Le username est déjà utilisé")
+     * @Assert\NotBlank(message = "Blanc interdit pour le userName")
+     * @Assert\NotNull(message = "Not Null interdit pour le userName")
      * @Groups({"user:get"})
      */
     private $username;
@@ -75,8 +80,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @var string The hashed password
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
      * @ORM\Column(type="string")
      * @Groups({"user:get"})
      */
@@ -90,53 +93,47 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=50, unique=true)
-     * @Assert\NotBlank(message = "notBlank")
+     * @Assert\NotBlank(message = "Blanc interdit pour l'email'")
      * @Assert\Email(message="L'email n'est pas valide")
-     * @Assert\Unique(message="L'email est déjà utilisé")
      * @Groups({"user:get"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=15)
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
+     * @Assert\NotBlank(message = "Blanc interdit pour le telephone")
+     * @Assert\NotNull(message = "Not null interdit pour le telephone")
      * @Assert\Length(max=15,maxMessage="Your telephone cannot be longer than {{ limit }} characters")
-     * @Assert\Regex(
-     *     pattern=Phone::VALID_REGEX,
-     *     message="phone"
-     * )
      * @Groups({"user:get"})
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="string", length=14, unique=true)
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
-     * @Assert\Unique(message="le siret est déjà utilisé")
+     * @Assert\NotBlank(message = "Blanc interdit pour le siret")
+     * @Assert\NotNull(message = "Not null interdit pour le siret")
      * @Assert\Length(max=14,maxMessage="Your siret cannot be longer than {{ limit }} characters")
      * @Groups({"user:get"})
      */
     private $siret;
 
     /**
-     * @ORM\OneToMany(targetEntity=Garage::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Garage::class, mappedBy="user", cascade={"remove"})
      */
     private $garages;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
+     * @Assert\NotBlank(message = "Blanc interdit pour le nom")
+     * @Assert\NotNull(message = "Not null interdit pour le nom")
      * @Groups({"user:get"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
+     * @Assert\NotBlank(message = "Blanc interdit pour le prenom")
+     * @Assert\NotNull(message = "Not null interdit pour le prenom")
      * @Groups({"user:get"})
      */
     private $prenom;
@@ -183,7 +180,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_PROFESSIONNEL';
 
         return array_unique($roles);
     }
