@@ -18,26 +18,25 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- * attributes={"order"={"DateAnnonce"="DESC"},"pagination_items_per_page"=30},
- * collectionOperations={
- *     "get",
- *     "post"={
- *              "security"="is_granted('ROLE_ADMIN') or object.garage.user== user"
- *          }
- *     },
- *     itemOperations={
- *     "get",
- *     "put"={
- *              "security"="is_granted('ROLE_ADMIN') or object.garage.user== user"
- *          },
- *
- *     "delete"={
- *              "security"="is_granted('ROLE_ADMIN') or object.garage.user== user"
- *          }
- *     },
- *     normalizationContext={
- *          "groups"={"annonce:get"}
- *     }
+ *  attributes={"order"={"DateAnnonce"="DESC"},"pagination_items_per_page"=30},
+ *  collectionOperations={
+ *      "get",
+ *      "post"={
+ *          "security"="is_granted('ROLE_ADMIN') or object.garage.user== user"
+ *      }
+ *  },
+ *  itemOperations={
+ *      "get",
+ *      "put"={
+ *          "security"="is_granted('ROLE_ADMIN') or object.garage.user== user"
+ *      },
+        "delete"={
+ *          "security"="is_granted('ROLE_ADMIN') or object.garage.user== user"
+ *      }
+ *  },
+ *  normalizationContext={
+ *      "groups"={"annonce:get"}
+ *  }
  * )
  * @ApiFilter(SearchFilter::class, properties={"refAnnonce"="exact","titre"="exact", "refAnnonce"="exact", "titre"="exact"})
  * @ApiFilter(OrderFilter::class, properties={"DateAnnonce"="DESC"})
@@ -67,8 +66,8 @@ class Annonce
     /**
      * @ORM\Column(type="string", length=10, unique=true)
      * @Groups({"annonce:get"})
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
+     * @Assert\NotBlank(message = "not Blank pour votre refAnnonce")
+     * @Assert\NotNull(message = "Not null pour votre refAnnonce")
      * @Assert\Unique(message="La reférence est déjà utilisé")
      * @Assert\Length(max=10,maxMessage="Your refAnnonce cannot be longer than {{ limit }} characters")
      */
@@ -77,24 +76,24 @@ class Annonce
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"annonce:get"})
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
+     * @Assert\NotBlank(message = "not Blank pour votre titre d'annonce")
+     * @Assert\NotNull(message = "Not null pour votre titre d'annonce")
      * @Assert\Length(max=50,maxMessage="Your titre cannot be longer than {{ limit }} characters")
      */
     private $titre;
 
     /**
      * @ORM\Column(type="string", length=250)
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
+     * @Assert\NotBlank(message = "not Blank pour votre description courte")
+     * @Assert\NotNull(message = "not Null pour votre description courte")
      * @Groups({"annonce:get"})
      */
     private $descriptionCourte;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank(message = "notBlank")
-     * @Assert\NotNull(message = "notNull")
+     * @Assert\NotBlank(message = "not Blank pour votre description longue")
+     * @Assert\NotNull(message = "not Null pour votre description longue")
      * @Groups({"annonce:get"})
      */
     private $descriptionLongue;
@@ -102,20 +101,20 @@ class Annonce
     /**
      * @ORM\Column(type="integer")
      * @Groups({"annonce:get"})
-     * @Assert\PositiveOrZero(message="not negative")
+     * @Assert\PositiveOrZero(message="not negative pour l'année de circulation")
      */
     private $anneeCirculation;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"annonce:get"})
-     * @Assert\PositiveOrZero(message="not negative")
+     * @Assert\PositiveOrZero(message="not negative pour le kilometrage")
      */
     private $kilometrage;
 
     /**
      * @ORM\Column(type="decimal", precision=13, scale=2)
-     * @Assert\PositiveOrZero(message="not negative")
+     * @Assert\PositiveOrZero(message="not negative pour le prix")
      * @Groups({"annonce:get"})
      */
     private $prix;

@@ -16,27 +16,28 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- *     collectionOperations={
- *     "get",
- *     "post"={
- *              "security"="is_granted('ROLE_ADMIN')"
- *          }
- *     },
- *     itemOperations={
- *     "get",
- *     "put"={
- *              "security"="is_granted('ROLE_ADMIN')"
- *          },
- *     "delete"={
- *              "security"="is_granted('ROLE_ADMIN')"
- *          }
- *     },
- *     normalizationContext={
- *          "groups"={"carburant:get"}
- *     }
+ *  attributes={"order"={"NomCarburant"="ASC"}},
+ *  collectionOperations={
+ *      "get",
+ *      "post"={
+ *          "security"="is_granted('ROLE_ADMIN')"
+ *      }
+ *  },
+ *  itemOperations={
+ *      "get",
+ *      "put"={
+ *          "security"="is_granted('ROLE_ADMIN')"
+ *  },
+ *      "delete"={
+ *          "security"="is_granted('ROLE_ADMIN')"
+ *      }
+ *  },
+ *  normalizationContext={
+ *      "groups"={"carburant:get"}
+ *  }
  * )
  * @ApiFilter(SearchFilter::class, properties={"NomCarburant"="exact"})
- * @ApiFilter(OrderFilter::class, properties={"NomCarburant"="asc"})
+ * @ApiFilter(OrderFilter::class, properties={"NomCarburant"="ASC"})
  * @ApiFilter(NumericFilter::class, properties={"id"})
  * @ORM\Entity(repositoryClass=CarburantRepository::class)
  */

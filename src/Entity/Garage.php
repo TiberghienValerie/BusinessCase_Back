@@ -17,27 +17,28 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- * collectionOperations={
- *     "get",
- *     "post"={
- *              "security"="is_granted('ROLE_PROFESSIONNEL')"
- *          }
- *     },
- *     itemOperations={
- *     "get",
- *     "put"={
- *              "security"="is_granted('ROLE_ADMIN') or object.user == user"
- *          },
+ *  attributes={"order"={"nom"="ASC"}},
+ *  collectionOperations={
+ *      "get",
+ *      "post"={
+ *          "security"="is_granted('ROLE_ADMIN') or object.user == user"
+ *      }
+ *  },
+ *  itemOperations={
+ *      "get",
+ *      "put"={
+ *          "security"="is_granted('ROLE_ADMIN') or object.user == user"
+ *      },
  *     "delete"={
- *              "security"="is_granted('ROLE_ADMIN') or object.user== user"
- *          }
- *     },
- *     normalizationContext={
- *          "groups"={"garage:get"}
+ *          "security"="is_granted('ROLE_ADMIN') or object.user== user"
  *     }
+ *  },
+ *  normalizationContext={
+*       "groups"={"garage:get"}
+ *  }
  * )
  * @ApiFilter(SearchFilter::class, properties={"nom"="exact", "telephone"="exact"})
- * @ApiFilter(OrderFilter::class, properties={"id"="asc"})
+ * @ApiFilter(OrderFilter::class, properties={"nom"="ASC"})
  * @ApiFilter(NumericFilter::class, properties={"user.id", "id"})
  *
  * @ORM\Entity(repositoryClass=GarageRepository::class)

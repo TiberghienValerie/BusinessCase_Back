@@ -16,27 +16,28 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- *     collectionOperations={
- *     "get",
- *     "post"={
- *              "security"="is_granted('ROLE_ADMIN')"
- *          }
- *     },
- *     itemOperations={
- *     "get",
- *     "put"={
- *              "security"="is_granted('ROLE_ADMIN')"
- *          },
- *     "delete"={
- *              "security"="is_granted('ROLE_ADMIN')"
- *          }
- *     },
- *     normalizationContext={
- *          "groups"={"modele:get"}
- *     }
+ *  attributes={"order"={"nomModele"="ASC"}},
+ *  collectionOperations={
+ *      "get",
+ *      "post"={
+ *          "security"="is_granted('ROLE_ADMIN')"
+ *      }
+ *  },
+ *  itemOperations={
+ *      "get",
+ *      "put"={
+ *          "security"="is_granted('ROLE_ADMIN')"
+ *      },
+ *      "delete"={
+ *          "security"="is_granted('ROLE_ADMIN')"
+ *      }
+ *  },
+ *  normalizationContext={
+ *      "groups"={"modele:get"}
+ *  }
  * )
  * @ApiFilter(SearchFilter::class, properties={"nomModele"="exact"})
- * @ApiFilter(OrderFilter::class, properties={"id"="asc"})
+ * @ApiFilter(OrderFilter::class, properties={"nomModele"="ASC"})
  * @ApiFilter(NumericFilter::class, properties={"id"})
  *
  * @ORM\Entity(repositoryClass=ModeleRepository::class)

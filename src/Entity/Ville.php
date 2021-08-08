@@ -17,27 +17,28 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- *     collectionOperations={
- *     "get",
- *     "post"={
- *              "security"="is_granted('ROLE_PROFESSIONNEL')"
- *          }
- *     },
- *     itemOperations={
+ *  attributes={"order"={"nomVille"="ASC"}},
+ *  collectionOperations={
+ *      "get",
+ *      "post"={
+ *          "security"="is_granted('ROLE_PROFESSIONNEL')"
+ *      }
+ *  },
+ *  itemOperations={
  *     "get",
  *     "put"={
- *              "security"="is_granted('ROLE_PROFESSIONNEL')"
- *          },
- *     "delete"={
- *              "security"="is_granted('ROLE_ADMIN')"
- *          }
- *     },
- *     normalizationContext={
- *          "groups"={"ville:get"}
- *     }
+ *          "security"="is_granted('ROLE_PROFESSIONNEL')"
+ *      },
+ *      "delete"={
+ *          "security"="is_granted('ROLE_ADMIN')"
+ *      }
+ *  },
+ *  normalizationContext={
+ *      "groups"={"ville:get"}
+ *  }
  * )
  * @ApiFilter(SearchFilter::class, properties={"codePostal"="exact", "nomVille"="exact"})
- * @ApiFilter(OrderFilter::class, properties={"id"="asc"})
+ * @ApiFilter(OrderFilter::class, properties={"nomVille"="ASC"})
  * @ApiFilter(NumericFilter::class, properties={"id"})
  * @ORM\Entity(repositoryClass=VilleRepository::class)
  */

@@ -14,27 +14,28 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- * collectionOperations={
- *     "get",
- *     "post"={
- *              "security"="is_granted('ROLE_ADMIN') or object.annonce.garage.user== user"
- *          }
- *     },
- *     itemOperations={
- *     "get",
- *     "put"={
- *              "security"="is_granted('ROLE_ADMIN') or object.annonce.garage.user== user"
- *          },
- *     "delete"={
- *              "security"="is_granted('ROLE_ADMIN') or object.annonce.garage.user== user"
- *          }
- *     },
- *     normalizationContext={
- *          "groups"={"photo:get"}
- *     }
+ *  attributes={"order"={"nomPhotos"="DESC"}},
+ *  collectionOperations={
+ *      "get",
+ *      "post"={
+ *          "security"="is_granted('ROLE_ADMIN')or object.annonce.garage.user== user"
+ *      }
+ *  },
+ *  itemOperations={
+ *      "get",
+ *      "put"={
+ *          "security"="is_granted('ROLE_ADMIN') or object.annonce.garage.user== user"
+ *      },
+ *      "delete"={
+ *          "security"="is_granted('ROLE_ADMIN') or object.annonce.garage.user== user"
+ *      }
+ *  },
+ *  normalizationContext={
+ *      "groups"={"photo:get"}
+ *  }
  * )
  * @ApiFilter(SearchFilter::class, properties={"nomPhotos"="exact"})
- * @ApiFilter(OrderFilter::class, properties={"id"="asc"})
+ * @ApiFilter(OrderFilter::class, properties={"nomPhotos"="ASC"})
  * @ApiFilter(NumericFilter::class, properties={"annonce.garage.user.id", "id"})
  * @ORM\Entity(repositoryClass=PhotoRepository::class)
  */

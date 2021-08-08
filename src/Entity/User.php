@@ -21,31 +21,32 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- * collectionOperations={
- *     "get"={
- *              "security"="is_granted('ROLE_PROFESSIONNEL')"
+ *  attributes={"order"={"nom"="ASC"}},
+ *  collectionOperations={
+ *      "get"={
+ *          "security"="is_granted('ROLE_PROFESSIONNEL')"
  *      },
- *     "post"={
- *              "security"="is_granted('ROLE_ADMIN')"
- *          }
- *     },
- * itemOperations={
- *     "get"={
- *              "security"="is_granted('ROLE_PROFESSIONNEL')"
+ *      "post"={
+ *          "security"="is_granted('ROLE_ADMIN')"
+ *      }
+ *  },
+ *  itemOperations={
+ *      "get"={
+ *          "security"="is_granted('ROLE_PROFESSIONNEL')"
  *      },
- *     "put"={
- *              "security"="is_granted('ROLE_PROFESSIONNEL')"
- *          },
- *     "delete"={
- *              "security"="is_granted('ROLE_ADMIN')"
- *          }
- *     },
- * normalizationContext={
- *          "groups"={"user:get"}
- *     }
+ *      "put"={
+ *          "security"="is_granted('ROLE_PROFESSIONNEL')"
+ *      },
+ *      "delete"={
+ *          "security"="is_granted('ROLE_ADMIN')"
+ *      }
+ *  },
+ *  normalizationContext={
+ *      "groups"={"user:get"}
+ *  }
  * )
  * @ApiFilter(SearchFilter::class, properties={"nom"="exact","prenom"="exact","siret"="exact","telephone"="exact","username"="exact","email"="exact"})
- * @ApiFilter(OrderFilter::class, properties={"id"="asc"})
+ * @ApiFilter(OrderFilter::class, properties={"nom"="ASC"})
  * @ApiFilter(NumericFilter::class, properties={"id"})
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(
