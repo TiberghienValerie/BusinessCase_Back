@@ -8,13 +8,12 @@ use App\Repository\GarageRepository;
 use App\Repository\UserRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 class GarageController extends AbstractController
 {
@@ -43,13 +42,11 @@ class GarageController extends AbstractController
 
 
     /**
-     * @Route("/garage/add", name="garage")
-     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNEL')")
+     * @Route("/garage/add", name="garageadd")
      */
     public function add(Request $request): Response
     {
         $post_data = json_decode($request->getContent());
-
 
         $user = $this->userRepository->find($post_data->user);
 
@@ -84,8 +81,7 @@ class GarageController extends AbstractController
     }
 
     /**
-     * @Route("/garage/update/{id}", name="garage")
-     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFESSIONNEL')")
+     * @Route("/garage/update/{id}", name="garageupdate")
      */
     public function update(Request $request, string $id): Response
     {
