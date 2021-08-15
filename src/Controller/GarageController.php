@@ -8,6 +8,7 @@ use App\Repository\GarageRepository;
 use App\Repository\UserRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,6 +43,7 @@ class GarageController extends AbstractController
 
 
     /**
+     * @IsGranted("ROLE_PROFESSIONNEL")
      * @Route("/garage/add", name="garageadd")
      */
     public function add(Request $request): Response
@@ -81,6 +83,7 @@ class GarageController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_PROFESSIONNEL")
      * @Route("/garage/update/{id}", name="garageupdate")
      */
     public function update(Request $request, string $id): Response
