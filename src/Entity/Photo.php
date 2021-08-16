@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- *  attributes={"order"={"nomPhotos"="DESC"}},
+ *  attributes={"order"={"ordre"="ASC"}},
  *  collectionOperations={
  *      "get",
  *      "post"={
@@ -35,7 +35,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *  }
  * )
  * @ApiFilter(SearchFilter::class, properties={"nomPhotos"="exact"})
- * @ApiFilter(OrderFilter::class, properties={"nomPhotos"="ASC"})
+ * @ApiFilter(OrderFilter::class, properties={"ordre"="ASC"})
  * @ApiFilter(NumericFilter::class, properties={"annonce.garage.user.id", "id"})
  * @ORM\Entity(repositoryClass=PhotoRepository::class)
  */

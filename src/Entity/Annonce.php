@@ -36,6 +36,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *  },
  *  normalizationContext={
  *      "groups"={"annonce:get"}
+ *  },
+ *  denormalizationContext={
+ *       "groups"={"annonce:get"}
  *  }
  * )
  * @ApiFilter(SearchFilter::class, properties={"refAnnonce"="exact","titre"="exact", "refAnnonce"="exact", "titre"="exact"})
@@ -142,6 +145,7 @@ class Annonce
 
     /**
      * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="annonce", cascade={"remove"})
+     * @Groups({"annonce:get"})
      */
     private $photos;
 

@@ -61,7 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user:get"})
+     * @Groups({"user:get", "garage:get"})
      */
     private $id;
 
@@ -69,7 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(message = "Blanc interdit pour le userName")
      * @Assert\NotNull(message = "Not Null interdit pour le userName")
-     * @Groups({"user:get"})
+     * @Groups({"user:get", "garage:get"})
      */
     private $username;
 
@@ -82,7 +82,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Groups({"user:get"})
+     * @Groups({"user:get", "garage:get"})
      */
     private $password;
 
@@ -96,7 +96,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=50, unique=true)
      * @Assert\NotBlank(message = "Blanc interdit pour l'email'")
      * @Assert\Email(message="L'email n'est pas valide")
-     * @Groups({"user:get"})
+     * @Groups({"user:get", "garage:get"})
      */
     private $email;
 
@@ -105,7 +105,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\NotBlank(message = "Blanc interdit pour le telephone")
      * @Assert\NotNull(message = "Not null interdit pour le telephone")
      * @Assert\Length(max=15,maxMessage="Your telephone cannot be longer than {{ limit }} characters")
-     * @Groups({"user:get"})
+     * @Groups({"user:get", "garage:get"})
      */
     private $telephone;
 
@@ -114,7 +114,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\NotBlank(message = "Blanc interdit pour le siret")
      * @Assert\NotNull(message = "Not null interdit pour le siret")
      * @Assert\Length(max=14,maxMessage="Your siret cannot be longer than {{ limit }} characters")
-     * @Groups({"user:get"})
+     * @Groups({"user:get", "garage:get"})
      */
     private $siret;
 
@@ -127,7 +127,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message = "Blanc interdit pour le nom")
      * @Assert\NotNull(message = "Not null interdit pour le nom")
-     * @Groups({"user:get"})
+     * @Groups({"user:get", "garage:get"})
      */
     private $nom;
 
@@ -135,7 +135,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message = "Blanc interdit pour le prenom")
      * @Assert\NotNull(message = "Not null interdit pour le prenom")
-     * @Groups({"user:get"})
+     * @Groups({"user:get", "garage:get"})
      */
     private $prenom;
 

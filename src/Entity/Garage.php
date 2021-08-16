@@ -35,6 +35,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *  },
  *  normalizationContext={
 *       "groups"={"garage:get"}
+ *  },
+ *  denormalizationContext={
+ *       "groups"={"garage:get"}
  *  }
  * )
  * @ApiFilter(SearchFilter::class, properties={"nom"="exact", "telephone"="exact"})
@@ -65,7 +68,7 @@ class Garage
      * @ORM\Column(type="string", length=15)
      * @Assert\NotBlank(message = "Blanc interdit pour le telephone")
      * @Assert\NotNull(message = "not null interdit pour le telephone")
-     * @Groups({"garage:get"})
+     * @Groups({"garage:get", "annonce:get"})
      */
     private $telephone;
 
@@ -85,6 +88,7 @@ class Garage
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="garages")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"garage:get"})
      */
     public $user;
 
