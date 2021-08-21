@@ -65,13 +65,6 @@ class Photo
      */
     private $pathPhotos;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Groups({"photo:get", "annonce:get"})
-     * @Assert\NotBlank(message = "Blanc interdit pour l'ordre'")
-     * @Assert\NotNull(message = "not null interdit pour l'ordre'")
-     */
-    private $ordre;
 
     /**
      * @ORM\ManyToOne(targetEntity=Annonce::class, inversedBy="photos")
