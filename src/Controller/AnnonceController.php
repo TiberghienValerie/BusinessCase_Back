@@ -118,7 +118,7 @@ class AnnonceController extends AbstractController
         $modele = $this->modeleRepository->find($post_data->modele);
 
         $annonce = new Annonce();
-        $annonce->setTitre($post_data->titre);
+        $annonce->setNom($post_data->titre);
         $annonce->setAnneeCirculation($post_data->anneeCirculation);
         $annonce->setKilometrage($post_data->kilometrage);
         $annonce->setPrix($post_data->prix);
@@ -150,7 +150,7 @@ class AnnonceController extends AbstractController
         $modele = $this->modeleRepository->find($post_data->modele);
 
         $annonce = $this->annonceRepository->find($id);
-        $annonce->setTitre($post_data->titre);
+        $annonce->setNom($post_data->titre);
         $annonce->setAnneeCirculation($post_data->anneeCirculation);
         $annonce->setKilometrage($post_data->kilometrage);
         $annonce->setPrix($post_data->prix);

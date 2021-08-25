@@ -41,7 +41,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *       "groups"={"annonce:get"}
  *  }
  * )
- * @ApiFilter(SearchFilter::class, properties={"refAnnonce"="exact","titre"="exact", "refAnnonce"="exact", "titre"="exact"})
+ * @ApiFilter(SearchFilter::class, properties={"refAnnonce"="exact","nom"="exact", "refAnnonce"="exact", "titre"="exact"})
  * @ApiFilter(OrderFilter::class, properties={"DateAnnonce"="DESC"})
  * @ApiFilter(NumericFilter::class, properties={"garage.user.id", "carburant.id", "modele.id", "modele.marque.id", "prix","kilometrage","anneeCirculation","id"})
  * @ApiFilter(RangeFilter::class, properties={"prix","kilometrage","anneeCirculation","id"})
@@ -83,7 +83,7 @@ class Annonce
      * @Assert\NotNull(message = "Not null pour votre titre d'annonce")
      * @Assert\Length(max=50,maxMessage="Your titre cannot be longer than {{ limit }} characters")
      */
-    private $titre;
+    private $nom;
 
     /**
      * @ORM\Column(type="string", length=250)
@@ -183,14 +183,14 @@ class Annonce
         return $this;
     }
 
-    public function getTitre(): ?string
+    public function getNom(): ?string
     {
-        return $this->titre;
+        return $this->nom;
     }
 
-    public function setTitre(string $titre): self
+    public function setNom(string $nom): self
     {
-        $this->titre = $titre;
+        $this->nom = $nom;
 
         return $this;
     }
