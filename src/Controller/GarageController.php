@@ -53,7 +53,7 @@ class GarageController extends AbstractController
         $user = $this->userRepository->find($post_data->user);
 
         $ville = $this->villeRepository->findOneBy([
-            'nomVille'=>$post_data->nomVille,
+            'nomVille'=>strtoupper($post_data->nomVille),
             'codePostal' => $post_data->codePostal,
             'adresse1' => $post_data->adresse1,
             'adresse2' => $post_data->adresse2,
@@ -62,7 +62,7 @@ class GarageController extends AbstractController
 
         if($ville === null) {
             $ville = new Ville();
-            $ville->setNomVille($post_data->nomVille);
+            $ville->setNomVille(strtoupper($post_data->nomVille));
             $ville->setCodePostal($post_data->codePostal);
             $ville->setAdresse1($post_data->adresse1);
             $ville->setAdresse2($post_data->adresse2);
@@ -91,7 +91,7 @@ class GarageController extends AbstractController
         $post_data = json_decode($request->getContent());
 
         $ville = $this->villeRepository->findOneBy([
-            'nomVille'=>$post_data->nomVille,
+            'nomVille'=>strtoupper($post_data->nomVille),
             'codePostal' => $post_data->codePostal,
             'adresse1' => $post_data->adresse1,
             'adresse2' => $post_data->adresse2,
@@ -100,7 +100,7 @@ class GarageController extends AbstractController
 
         if($ville === null) {
             $ville = new Ville();
-            $ville->setNomVille($post_data->nomVille);
+            $ville->setNomVille(strtoupper($post_data->nomVille));
             $ville->setCodePostal($post_data->codePostal);
             $ville->setAdresse1($post_data->adresse1);
             $ville->setAdresse2($post_data->adresse2);

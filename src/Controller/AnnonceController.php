@@ -55,42 +55,6 @@ class AnnonceController extends AbstractController
         $this->modeleRepository = $modeleRepository;
     }
 
-
-    /**
-     * @IsGranted("ROLE_PROFESSIONNEL")
-     * @Route("/annonce/delete/{id}", name="delete")
-     */
-    public function delete(Request $request, string $id): Response
-    {
-        try {
-            $annonceEntity = $this->annonceRepository->find($id);
-            $photoEntities = $this->photoRepository->findBy([
-                'annonce' => $id
-            ]);
-
-           if(sizeof($photoEntities)>0) {
-                foreach($photoEntities as $photo) {
-                    $folderPath = $this->getParameter('upload_directory') . '/' . $annonceEntity->getId() . '/' . $photo->getPathPhotos();
-                    unlink($folderPath);
-                    $this->em->remove($photo);
-                    $this->em->flush();
-                }
-                rmdir($this->getParameter('upload_directory') . '/' . $annonceEntity->getId());
-            }
-            $this->em->remove($annonceEntity);
-            $this->em->flush();
-
-            return new JsonResponse([
-                'response' => 'bon'
-            ]);
-
-        }catch (FileException $e) {
-            // unable to upload the photo, give up
-        }
-
-
-    }
-
     private function getToken($length){
         $token = "";
         $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -166,6 +130,42 @@ class AnnonceController extends AbstractController
         return new JsonResponse([
             'response' => 'bon'
         ]);
+    }
+
+    /**
+     * @IsGranted("ROLE_PROFESSIONNEL")
+     * @Route("/annonce/delete/{id}", name="annoncedelete")
+     */
+    public function delete(Request $request, string $id): Response
+    {
+
+        try {
+        $annonce = $this->annonceRepository->find($id);
+        $photoEntities = $this->photoRepository->findBy([
+            'annonce' => $id
+        ]);
+
+       if(sizeof($photoEntities)>0) {
+            foreach($photoEntities as $photo) {
+                $folderPath = $this->getParameter('upload_directory') . '/' . $annonce->getId() . '/' . $photo->getPathPhotos();
+                unlink($folderPath);
+                $this->em->remove($photo);
+                $this->em->flush();
+            }
+            rmdir($this->getParameter('upload_directory') . '/' . $annonce->getId());
+        }
+        $this->em->remove($annonce);
+        $this->em->flush();
+
+        return new JsonResponse([
+            'response' => 'bon'
+        ]);
+
+         }catch (FileException $e) {
+             // unable to upload the photo, give up
+         }
+
+
     }
 
 }
